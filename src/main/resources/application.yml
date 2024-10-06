@@ -1,0 +1,116 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/trip_service
+    username: postgres # ${POSTGRES_USERNAME}
+    password: postgres # ${POSTGRES_PASSWORD}
+#    hikari:
+#      connection-init-sql: SET TIME ZONE 'UTC'
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+#    #    generate-ddl: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 100
+        order_inserts: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        session:
+          events:
+            log:
+              LOG_QUERIES_SLOWER_THAN_MS: 500
+  liquibase:
+    change-log: db/db.changelog-master.yaml
+    liquibaseSchema: liquibase
+  application:
+    name: trip-service
+#  cloud:
+#    aws:
+#      sns:
+#        enabled: false
+#      region:
+#        static: ${allianz.df.fileManager.presignedUrlGenerator.region}
+#      sqs:
+#        listener:
+#          fail-on-missing-queue: true
+
+#Springdoc config
+springdoc:
+  packagesToScan: com.andersenlab.service.trip.controller
+
+buildVersion: '@pom.version@'
+apiVersion: v.1.0.0
+
+#allianz:
+#  df:
+#    validation:
+#      token:
+#        jwk:
+#          authorizationHeaderProvider:
+#            url: ${apigee.internal.host}/jwtauth/jwks.json
+#        authentication:
+#          GET_providers_provider_filesByExt_fileId:
+#            headerAuthorization:
+#              operations: GET_providers__provider__files-by-ext__fileId_
+#          GET_providers_provider_filesByExt_extFileId:
+#            headerAuthorization:
+#              operations: GET_providers__provider__files-by-ext__extFileId_
+#    logger:
+#      jwtInfo:
+#        enable: true
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        #spring boot actuator
+        include: health,info
+  info:
+    git:
+      #enable full git info in /actuator/info
+      mode: full
+    env:
+      #show variables info.* in /actuator/info
+      enabled: 'true'
+
+info:
+  exposedHosts: spring.application.name-${spring.application.name},springdoc.packagesToScan-${springdoc.packagesToScan}
+
+apigee:
+#  internal:
+#   host: https://uat-allianz-partners.apis.allianz
+#   auth:
+#     clientId: ${FILE_MANAGER_PROVIDER_CLIENT_ID}
+#     clientSecret: ${FILE_MANAGER_PROVIDER_CLIENT_SECRET}
+#     grantType: client_credentials
+#
+#
+#feign:
+#  apigeeClient:
+#    name: apigeeClient
+#    host: ${apigee.internal.host}
+#  fileManagerProvider:
+#    name: fileManagerProvider
+#    host: ${apigee.internal.host}
+#
+#fms:
+#  expire:
+#    schedule:
+#      uploadUrlExpirationTtl: 30
+#      uploadToTemporaryUrlExpirationTtl: 72
+#      cron: 0 0/5 * * * *
+
+#sunset:
+#  header:
+#    V1: "Fri, 02 Feb 2023 00:00:00 GMT"
+#
+#aws:
+#  kafka:
+#    enabled: true
+#    bootstrapServers: b-2.azpdddevkafka.365yfq.c2.kafka.eu-central-1.amazonaws.com:9098,b-1.azpdddevkafka.365yfq.c2.kafka.eu-central-1.amazonaws.com:9098 #localhost:9998
+#    retentionMs: 7889400000 # 3 month
+#    fileStatusTopicName: filemanager-file-upload-status-events-dev

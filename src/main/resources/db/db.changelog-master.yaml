@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01-20240929-2028
+      author: v.lisouskaya
+      preConditions:
+        - onFail: HALT
+      changes:
+        - sqlFile:
+            path: db/changelog/2024/09/29/01-create-table-trip-visited_place-user-and-fill-tables.sql
+            stripComments: true
+            splitStatements: true
+  - changeSet:
+      id: 02-20241006-1701
+      author: v.lisouskaya
+      preConditions:
+        - onFail: HALT
+      changes:
+        - sqlFile:
+            path: db/changelog/2024/10/06/01-create-unique-hash-index-on-trip-trip_id-organizer_id.sql
+            stripComments: true
+            splitStatements: true

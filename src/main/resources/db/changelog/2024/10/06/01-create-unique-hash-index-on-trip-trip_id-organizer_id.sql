@@ -1,0 +1,35 @@
+create unique index if not exists trip__trip_id_organizer_id__uindex
+    on trip (trip_id, organizer_id);
+
+-- create table role
+-- (
+--     role_id uuid        not null
+--         constraint role_pk primary key,
+--     name    varchar(50) not null
+-- );
+--
+-- create table user_info
+-- (
+--     user_id  uuid         not null
+--         constraint user_pk primary key,
+--     name     varchar(50)  not null unique,
+--     password varchar(255) not null,
+--     role_id  uuid
+--         constraint user_info_role_role_id_fk
+--             references role
+-- );
+--
+-- insert into role(role_id, name)
+-- values (gen_random_uuid(), 'ROLE_ADMIN'),
+--        (gen_random_uuid(), 'ROLE_EDITOR'),
+--        (gen_random_uuid(), 'ROLE_GUEST');
+--
+-- insert into user_info(user_id, name, password, role_id)
+-- values (gen_random_uuid(), 'admin', '$2a$10$xTjcID27wzKYw8CuRgreV.WITxxSHCnDVtBLevnzP5kSdS07yJJX.',
+--         (select role_id from role r where r.name = 'ROLE_ADMIN')),
+--        (gen_random_uuid(), 'editor', '$2a$10$cBVA9aEImT8YSAl.oKC0u.8xoZExxm5Y4f8OoxM6X2q31PrRfmFpW',
+--         (select role_id from role r where r.name = 'ROLE_EDITOR')),
+--        (gen_random_uuid(), 'guest', '$2a$10$sKG0kc6lSCSRGHWa8bWqCunS5xGJsb99wZFYjtaCnaYS74ysOHUmi',
+--         (select role_id from role r where r.name = 'ROLE_GUEST'))
+--
+--
